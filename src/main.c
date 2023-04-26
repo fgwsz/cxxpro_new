@@ -1,12 +1,13 @@
 #include<stdbool.h> // bool
 #include<stddef.h> // size_t
-#include<ctype.h> // isalnum
+#include<ctype.h> // isalnum isdigit
 #include<stdio.h> // printf fopen FILE fclose fprintf
 #include<string.h> // strlen
-#include"filesystem.h" // filesystem_createDir filesystem_createFile filesystem_pathExist
+#include"filesystem.h" // filesystem_createDir
 #include"memory.h" // memory_free
 #include"string_concat.h" // string_concat
 extern bool checkProjectName(char const* project_name);
+extern bool fileExist(char const* file_path);
 // argv[1]:project name
 int main(int argc,char* argv[]){
     if(argc!=2){
@@ -14,35 +15,29 @@ int main(int argc,char* argv[]){
         return -1;
     }
     char* project_name=argv[1];
-    printf("project name:%s\n",project_name);
     if(!checkProjectName(project_name)){
         printf("project name error!\n");
         return -2;
     }
     filesystem_createDir(project_name);
 
-    char* project_build_path=NULL;
-    project_build_path=string_concat(project_name,"/build");
+    char* project_build_path=string_concat(project_name,"/build");
     filesystem_createDir(project_build_path);
     memory_free(project_build_path);
     project_build_path=NULL;
 
-    char* project_src_path=NULL;
-    project_src_path=string_concat(project_name,"/src");
+    char* project_src_path=string_concat(project_name,"/src");
     filesystem_createDir(project_src_path);
     memory_free(project_src_path);
     project_src_path=NULL;
 
-    char* project_include_path=NULL;
-    project_include_path=string_concat(project_name,"/include");
+    char* project_include_path=string_concat(project_name,"/include");
     filesystem_createDir(project_include_path);
     memory_free(project_include_path);
     project_include_path=NULL;
 
-    char* project_cmakelists_path=NULL;
-    project_cmakelists_path=string_concat(project_name,"/CMakeLists.txt");
-    if(!filesystem_pathExist(project_cmakelists_path)){
-        filesystem_createFile(project_cmakelists_path);
+    char* project_cmakelists_path=string_concat(project_name,"/CMakeLists.txt");
+    if(!fileExist(project_cmakelists_path)){
         FILE* stream=fopen(project_cmakelists_path,"w");
         if(stream==NULL){
             printf("create CMakeLists.txt error!\n");
@@ -62,20 +57,23 @@ int main(int argc,char* argv[]){
     project_cmakelists_path=NULL;
     return 0;
 }
-extern bool checkProjectName(char const* project_name){
-    if(project_name==NULL||project_name[0]=='\0'){
+bool checkProjectName(char const* project_name){
+    if(project_name==NULL||project_name[0]=='\0'||isdigit(project_name[0])){
         return false;
     }
     size_t len=strlen(project_name);
-    if(isdigit(project_name[0])){
-        return false;
-    }
     for(size_t index=0;index<len;++index){
-        if(isalnum(project_name[index])||project_name[index]=='_'){
-            continue;
-        }else{
+        if(!(isalnum(project_name[index])||project_name[index]=='_')){
             return false;
         }
     }
+    return true;
+}
+bool fileExist(char const* file_path){
+    FILE* stream=fopen(file_path,"r");
+    if(stream==NULL){
+        return false;
+    }
+    fclose(stream);
     return true;
 }
