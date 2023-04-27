@@ -2,12 +2,12 @@
 #include<stddef.h> // size_t
 #include<ctype.h> // isalnum isdigit
 #include<stdio.h> // printf fopen FILE fclose fprintf
-#include<string.h> // strlen
-#include"filesystem.h" // filesystem_createDir
-#include"memory.h" // memory_free
-#include"string_concat.h" // string_concat
+#include<string.h> // strlen memset
+#include<stdlib.h> // malloc free
 extern bool checkProjectName(char const* project_name);
 extern bool fileExist(char const* file_path);
+extern void makeDir(char const* dir_path);
+extern char* stringConcat(char const* str1,char const* str2);
 // argv[1]:project name
 int main(int argc,char* argv[]){
     if(argc!=2){
@@ -19,29 +19,29 @@ int main(int argc,char* argv[]){
         printf("project name error!\n");
         return -2;
     }
-    filesystem_createDir(project_name);
+    makeDir(project_name);
 
-    char* project_build_path=string_concat(project_name,"/build");
-    filesystem_createDir(project_build_path);
-    memory_free(project_build_path);
+    char* project_build_path=stringConcat(project_name,"/build");
+    makeDir(project_build_path);
+    free(project_build_path);
     project_build_path=NULL;
 
-    char* project_src_path=string_concat(project_name,"/src");
-    filesystem_createDir(project_src_path);
-    memory_free(project_src_path);
+    char* project_src_path=stringConcat(project_name,"/src");
+    makeDir(project_src_path);
+    free(project_src_path);
     project_src_path=NULL;
 
-    char* project_include_path=string_concat(project_name,"/include");
-    filesystem_createDir(project_include_path);
-    memory_free(project_include_path);
+    char* project_include_path=stringConcat(project_name,"/include");
+    makeDir(project_include_path);
+    free(project_include_path);
     project_include_path=NULL;
 
-    char* project_cmakelists_path=string_concat(project_name,"/CMakeLists.txt");
+    char* project_cmakelists_path=stringConcat(project_name,"/CMakeLists.txt");
     if(!fileExist(project_cmakelists_path)){
         FILE* stream=fopen(project_cmakelists_path,"w");
         if(stream==NULL){
             printf("create CMakeLists.txt error!\n");
-            memory_free(project_cmakelists_path);
+            free(project_cmakelists_path);
             project_cmakelists_path=NULL;
             return -3;
         }
@@ -53,7 +53,7 @@ int main(int argc,char* argv[]){
         fprintf(stream,"add_executable(${PROJECT_NAME} ${SRC_DIR})\n");
         fclose(stream);
     }
-    memory_free(project_cmakelists_path);
+    free(project_cmakelists_path);
     project_cmakelists_path=NULL;
     return 0;
 }
@@ -76,4 +76,60 @@ bool fileExist(char const* file_path){
     }
     fclose(stream);
     return true;
+}
+#if defined(WIN32) || defined(_WIN32) || defined(_WIN32_) || defined(WIN64) || defined(_WIN64) || defined(_WIN64_)
+#include<direct.h> // mkdir
+#include<io.h> // _access
+static bool __pathExist(char const* path){
+    return (bool)(_access(path,0)!=-1);
+}
+void makeDir(char const* dir_path){
+    if(!__pathExist(dir_path)){
+        mkdir(dir_path);
+    }
+}
+#elif defined(__linux__)
+#include<unistd.h> // access F_OK
+// mkdir
+#include <sys/stat.h>
+#include <sys/types.h>
+static bool __pathExist(char const* path){
+    return (bool)(access(path,F_OK)==0);
+}
+void makeDir(char const* dir_path){
+    if(!__pathExist(dir_path)){
+        mkdir(dir_path,S_IRWXU);
+    }
+}
+#endif
+static size_t __stringLength(char const* str){
+    if(str==NULL){
+        return 0;
+    }
+    return strlen(str);
+}
+static void __stringConcat(char* str_this,char const* str_append){
+    if(__stringLength(str_append)==0){
+        return;
+    }
+    strcat(str_this,str_append);
+}
+static void* memoryAlloc(size_t byte_size){
+    void* ret=NULL;
+    while(1){
+        ret=malloc(byte_size);
+        if(ret!=NULL){
+            memset(ret,0,byte_size);
+            return ret;
+        }
+        free(ret);
+        ret=NULL;
+    }
+}
+char* stringConcat(char const* str1,char const* str2){
+    size_t ret_byte_size=sizeof(char)*(__stringLength(str1)+__stringLength(str2)+1);
+    char* ret=(char*)memoryAlloc(ret_byte_size);
+    __stringConcat(ret,str1);
+    __stringConcat(ret,str2);
+    return ret;
 }
