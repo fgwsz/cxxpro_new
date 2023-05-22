@@ -47,7 +47,8 @@ int main(int argc,char* argv[]){
         }
         fprintf(stream,"cmake_minimum_required(VERSION 3.15)\n");
         fprintf(stream,"project(%s VERSION 0.0.1 LANGUAGES C CXX)\n",project_name);
-        fprintf(stream,"set(CMAKE_C_STANDARD 11)\n");
+        fprintf(stream,"set(CMAKE_C_STANDARD 17)\n");
+        fprintf(stream,"set(CMAKE_CXX_STANDARD 20)\n");
         fprintf(stream,"aux_source_directory(src SRC_DIR)\n");
         fprintf(stream,"include_directories(include)\n");
         fprintf(stream,"add_executable(${PROJECT_NAME} ${SRC_DIR})\n");
