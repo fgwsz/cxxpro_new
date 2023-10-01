@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-project(make_c_project VERSION 0.0.1 LANGUAGES C CXX)
-set(CMAKE_C_STANDARD 11)
+project(make_c_project VERSION 0.0.1 LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 20)
 aux_source_directory(src SRC_DIR)
 # include_directories(include)
 add_executable(${PROJECT_NAME} ${SRC_DIR})
