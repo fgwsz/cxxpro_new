@@ -7,14 +7,14 @@ use:
 
 this program will create the following file structure:  
 ```
-./${project\_name}/  
+./${project_name}/  
     |--include/  
         |--main.h  
     |--src/  
         |--main.cpp  
     |--CMakeLists.txt  
-    |--mingw\_build.ps1  
-    |--msvc\_build.ps1  
+    |--mingw_build.ps1  
+    |--msvc_build.ps1  
     |--README.md  
-    |--git\_push.ps1
+    |--git_push.ps1
 ```
