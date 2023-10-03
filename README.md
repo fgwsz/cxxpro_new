@@ -12,7 +12,7 @@ this program will create the following file structure:
 &ensp;&ensp;|--src/  
 &ensp;&ensp;&ensp;&ensp;|--main.cpp  
 &ensp;&ensp;|--CMakeLists.txt  
-&ensp;&ensp;|--mingw_build.ps1  
-&ensp;&ensp;|--msvc_build.ps1  
+&ensp;&ensp;|--mingw\_build.ps1  
+&ensp;&ensp;|--msvc\_build.ps1  
 &ensp;&ensp;|--README.md  
-&ensp;&ensp;|--git_push.ps1
+&ensp;&ensp;|--git\_push.ps1
