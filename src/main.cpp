@@ -142,16 +142,21 @@ int main(int argc,char* argv[]){
             ::std::cout<<"open git_push.ps1 error!\n";
             return -10;
         }
-        ofs<<"git add include/*\n"
-           <<"git add src/*\n"
-           <<"git add CMakeLists.txt\n"
-           <<"git add mingw_build.ps1\n"
-           <<"git add msvc_build.ps1\n"
-           <<"git add README.md\n"
-           <<"git add git_push.ps1\n"
+        ofs<<"echo \"you can input exit to abort git push.\"\n"
            <<"$commit_info=Read-Host -Prompt \"input commit info\"\n"
-           <<"git commit -m $commit_info\n"
-           <<"git push\n";
+           <<"if($commit_info -eq \"exit\"){\n"
+           <<"    echo \"git push exit!\"\n"
+           <<"}else{\n"
+           <<"    git add include/*\n"
+           <<"    git add src/*\n"
+           <<"    git add CMakeLists.txt\n"
+           <<"    git add mingw_build.ps1\n"
+           <<"    git add msvc_build.ps1\n"
+           <<"    git add README.md\n"
+           <<"    git add git_push.ps1\n"
+           <<"    git commit -m $commit_info\n"
+           <<"    git push\n"
+           <<"}\n";
     }
     ::std::cout<<"created successfully!\n";
     return 0;
