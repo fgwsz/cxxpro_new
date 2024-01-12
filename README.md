@@ -13,9 +13,8 @@ this program will create the following file structure:
     |--src/  
         |--main.cpp  
     |--CMakeLists.txt  
-    |--mingw_build.ps1  
-    |--msvc_build.ps1  
+    |--build*.ps1  
     |--README.md  
-    |--git_push.ps1
+    |--git-push.ps1
     |--.gitignore
 ```
