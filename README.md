@@ -9,7 +9,7 @@ this program will create the following file structure:
 ```
 ./${project_name}/  
     |--include/  
-        |--main.h  
+        |--main.hpp  
     |--src/  
         |--main.cpp  
     |--CMakeLists.txt  
@@ -17,4 +17,5 @@ this program will create the following file structure:
     |--msvc_build.ps1  
     |--README.md  
     |--git_push.ps1
+    |--.gitignore
 ```
