@@ -1,9 +1,9 @@
-# make\_c\_project
+# cxxpro\_new
 input a string from console `${project_name}`,
 and `${project_name}` can only use letters and numbers and underscores.
 
 use:  
-`make_c_project.exe ${project_name}`
+`cxxpro_new.exe ${project_name}`
 
 this program will create the following file structure:  
 ```

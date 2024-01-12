@@ -5,5 +5,5 @@ cd mingw_build
 cmake -G"MinGW Makefiles" ..
 cmake --build .   
 cd ..
-cp mingw_build/make_c_project.exe make_c_project.exe
-./make_c_project.exe
+cp mingw_build/cxxpro_new.exe cxxpro_new.exe
+./cxxpro_new.exe
