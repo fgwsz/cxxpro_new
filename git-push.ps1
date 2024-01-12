@@ -5,11 +5,12 @@ if($commit_info -eq "exit"){
 }else{
     git add include/*
     git add src/*
+    git add res/*
     git add CMakeLists.txt
-    git add msvc_build.ps1
-    git add mingw_build.ps1
+    git add build*.ps1
     git add README.md
-    git add git_push.ps1
+    git add git-push.ps1
+    git add .gitignore
     git commit -m $commit_info
     git push
 }
