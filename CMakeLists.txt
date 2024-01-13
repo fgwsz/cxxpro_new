@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
-project(cxxpro_new VERSION 0.0.1 LANGUAGES CXX)
+get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+project(${PROJECT_NAME} LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 aux_source_directory(src SRC_DIR)
 include_directories(include)
