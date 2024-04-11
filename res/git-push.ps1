@@ -3,6 +3,9 @@ $commit_info=Read-Host -Prompt "input commit info"
 if($commit_info -eq "exit"){
     echo "git push exit!"
 }else{
+    git add -f bin/.gitkeep
+    git add -f build/.gitkeep
+    git add -f vendor/.gitkeep
     git add include/*
     git add src/*
     git add tests/*
