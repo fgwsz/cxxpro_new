@@ -4,6 +4,7 @@ if(!($commit_info -eq "q")){
     git add -f bin/.gitkeep
     git add -f build/.gitkeep
     git add -f vendor/.gitkeep
+    git add -f releases/.gitkeep
     git add include/*
     git add src/*
     git add tests/*

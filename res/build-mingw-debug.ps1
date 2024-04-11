@@ -8,4 +8,9 @@ cmake -G "MinGW Makefiles" ../../..
 cmake --build .
 cd ../../..
 cp "$build_path/$project_name.exe" "./bin/$project_name-mingw-debug.exe"
+$bin_res_path="./bin/res"
+if(!(Test-Path -Path $bin_res_path)){
+    mkdir $bin_res_path
+}
+cp ./res/* $bin_res_path
 & "./bin/$project_name-mingw-debug.exe"
