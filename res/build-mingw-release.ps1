@@ -7,5 +7,5 @@ cd $build_path
 cmake -G "MinGW Makefiles" ../../..
 cmake --build . --config Release
 cd ../../..
-cp "$build_path/$project_name.exe" "./$project_name-mingw-release.exe"
-& "./$project_name-mingw-release.exe"
+cp "$build_path/$project_name.exe" "./bin/$project_name-mingw-release.exe"
+& "./bin/$project_name-mingw-release.exe"

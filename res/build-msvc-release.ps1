@@ -7,5 +7,5 @@ cd $build_path
 cmake -G "Visual Studio 17 2022" ../../..
 cmake --build . --config Release
 cd ../../..
-cp "$build_path/Release/$project_name.exe" "./$project_name-msvc-release.exe"
-& "./$project_name-msvc-release.exe"
+cp "$build_path/Release/$project_name.exe" "./bin/$project_name-msvc-release.exe"
+& "./bin/$project_name-msvc-release.exe"

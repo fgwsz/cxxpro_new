@@ -7,5 +7,5 @@ cd $build_path
 cmake -G "Visual Studio 17 2022" ../../..
 cmake --build .
 cd ../../..
-cp "$build_path/Debug/$project_name.exe" "./$project_name-msvc-debug.exe"
-& "./$project_name-msvc-debug.exe"
+cp "$build_path/Debug/$project_name.exe" "./bin/$project_name-msvc-debug.exe"
+& "./bin/$project_name-msvc-debug.exe"
