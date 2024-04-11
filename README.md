@@ -8,14 +8,22 @@ use:
 this program will create the following file structure:  
 ```
 ./${project_name}/  
+    |--bin/  
+    |--build/  
+    |--vendor/  
     |--include/  
-        |--main.hpp  
     |--src/  
         |--main.cpp  
+    |--tests/  
+    |--res/  
+    |--releases/  
+    |--docs/  
     |--CMakeLists.txt  
+    |--LICENSE  
+    |--README.md  
+    |--.gitignore
+    |--git-push.ps1
+    |--git-keep.ps1
     |--build*.ps1  
     |--clean.ps1  
-    |--README.md  
-    |--git-push.ps1
-    |--.gitignore
 ```
